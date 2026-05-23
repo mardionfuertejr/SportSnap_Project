@@ -1,1 +1,0 @@
-# SportSnap Django Project

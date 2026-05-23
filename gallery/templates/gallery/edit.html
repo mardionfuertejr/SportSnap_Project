@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}SportSnap - Edit Photo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white border-0 pt-4 pb-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="card-title fw-bold mb-0">Edit Photo Details</h3>
+                    <a href="{% url 'gallery_home' %}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Back to Gallery</a>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        {% if photo.image %}
+                        <img src="{{ photo.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ photo.title }}">
+                        {% else %}
+                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded h-100 min-vh-25">
+                            <i class="bi bi-image" style="font-size: 3rem;"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted small">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                <div class="form-text">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <a href="{% url 'gallery_home' %}" class="btn btn-light me-md-2">Cancel</a>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
