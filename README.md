@@ -35,7 +35,7 @@ sportsnap/
 2. **Create a virtual environment and activate it:**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate 
    ```
 3. **Install dependencies:**
    ```bash
@@ -66,11 +66,13 @@ This project is configured for deployment on Render.
 3. Set the **Start Command** to: `gunicorn sportsnap.wsgi:application`
 4. Add the following **Environment Variables** in the Render dashboard:
    - `PYTHON_VERSION`: `3.14.3`
-   - `SECRET_KEY`: Your secure secret key
+   - `SECRET_KEY`: `django-insecure-sportsnap-prod-2026-!@#$%^`
    - `DEBUG`: `False`
    - `ALLOWED_HOSTS`: `.onrender.com`
-   - `DATABASE_URL`: Add a Render PostgreSQL database and paste the internal URL here.
-   - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`: Your Cloudinary credentials.
+   - `DATABASE_URL`: `postgresql://sportsnap_db_user:J2LzhWR9slM5lIelTTbo1oUTjj1ONdEV@dpg-d88qb56q1p3s73f7cjag-a/sportsnap_db`
+   - `CLOUDINARY_CLOUD_NAME`: `dfpajntid`
+   - `CLOUDINARY_API_KEY`: `125814895956173`
+   - `CLOUDINARY_API_SECRET`: `[ILAGAY DITO YUNG ROOT API SECRET MULA SA CLOUDINARY]`
 
 ## 👨‍💻 Developer Notes
 
