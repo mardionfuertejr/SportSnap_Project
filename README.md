@@ -42,7 +42,7 @@ sportsnap/
    pip install -r requirements.txt
    ```
 4. **Set up environment variables:**
-   Copy `.env.example` to `.env` and fill in your Cloudinary credentials.
+   Create a `.env` file in the root directory and fill in the required variables (see the Deployment section below for the full list).
 5. **Run migrations:**
    ```bash
    python manage.py makemigrations
