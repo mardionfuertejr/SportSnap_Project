@@ -23,13 +23,10 @@ SportSnap is a complete production-ready Django web application built as a sport
 
 ```
 sportsnap/
-├── accounts/         # User auth, profiles, and admin user management
-├── albums/           # Album CRUD, lists, and filtering
-├── photos/           # Multi-image upload and photo management
-├── dashboard/        # Activity logs and site statistics
-├── templates/        # HTML templates using Bootstrap 5
-├── static/           # Custom CSS and JavaScript
-└── sportsnap/        # Core project settings
+├── accounts/         # User auth, registration, and profile templates
+├── gallery/          # Album and Photo models, CBVs, and main UI templates
+├── static/           # Custom CSS, JavaScript, and images
+└── sportsnap/        # Core project settings and configurations
 ```
 
 ## 🚀 Local Development Setup
@@ -66,9 +63,9 @@ This project is configured for deployment on Render.
 
 1. Create a new **Web Service** on Render and connect your repository.
 2. Set the **Build Command** to: `./build.sh`
-3. Set the **Start Command** to: `gunicorn sportsnap.wsgi --log-file -`
+3. Set the **Start Command** to: `gunicorn sportsnap.wsgi:application`
 4. Add the following **Environment Variables** in the Render dashboard:
-   - `PYTHON_VERSION`: `3.10.13`
+   - `PYTHON_VERSION`: `3.14.3`
    - `SECRET_KEY`: Your secure secret key
    - `DEBUG`: `False`
    - `ALLOWED_HOSTS`: `.onrender.com`
