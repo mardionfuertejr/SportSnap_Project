@@ -1,0 +1,9 @@
+Django>=5.1,<5.2
+gunicorn
+psycopg2-binary
+dj-database-url
+python-decouple
+whitenoise
+cloudinary
+django-cloudinary-storage
+Pillow

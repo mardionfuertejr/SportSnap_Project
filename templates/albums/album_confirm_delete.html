@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Album — SportSnap{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm text-center p-4">
+            <h3>Delete Album</h3>
+            <p class="text-muted">Are you sure you want to delete <strong>"{{ object.title }}"</strong> and all its photos?</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex gap-2 justify-content-center">
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

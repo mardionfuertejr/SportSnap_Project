@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Photo Details — {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex align-items-center mb-4">
+        <a href="{{ photo.album.get_absolute_url }}" class="btn btn-outline-light btn-sm me-3">
+            <i class="bi bi-arrow-left"></i> Back to Album
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card glass-card border-0 overflow-hidden">
+                <img src="{{ photo.image_url }}" class="img-fluid w-100" alt="{{ photo.caption|default:'Photo' }}" style="object-fit: contain; max-height: 70vh; background-color: #000;">
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card glass-card border-0 h-100 p-4">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <h4 class="fw-bold mb-0">Photo Info</h4>
+                    {% if request.user == photo.uploaded_by or request.user.is_staff %}
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-light" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end glass-dropdown">
+                            <li><a class="dropdown-item" href="{% url 'photos:photo_edit' photo.pk %}"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'photos:photo_delete' photo.pk %}"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-4">
+                    {% if photo.sport_tag %}
+                    <span class="badge bg-accent text-dark mb-2">{{ photo.sport_tag }}</span>
+                    {% endif %}
+                    {% if photo.caption %}
+                    <p class="fs-5 mb-0">{{ photo.caption }}</p>
+                    {% else %}
+                    <p class="text-muted fst-italic mb-0">No caption provided.</p>
+                    {% endif %}
+                </div>
+
+                <ul class="list-group list-group-flush bg-transparent">
+                    <li class="list-group-item bg-transparent text-light border-secondary px-0 d-flex justify-content-between">
+                        <span class="text-muted"><i class="bi bi-collection me-2"></i>Album</span>
+                        <a href="{{ photo.album.get_absolute_url }}" class="text-accent text-decoration-none">{{ photo.album.title }}</a>
+                    </li>
+                    <li class="list-group-item bg-transparent text-light border-secondary px-0 d-flex justify-content-between">
+                        <span class="text-muted"><i class="bi bi-person me-2"></i>Uploaded By</span>
+                        <span>{{ photo.uploaded_by.username }}</span>
+                    </li>
+                    <li class="list-group-item bg-transparent text-light border-secondary px-0 d-flex justify-content-between">
+                        <span class="text-muted"><i class="bi bi-calendar3 me-2"></i>Date</span>
+                        <span>{{ photo.uploaded_at|date:"M d, Y" }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
