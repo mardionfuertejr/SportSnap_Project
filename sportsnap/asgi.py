@@ -1,5 +1,5 @@
 """
-ASGI config for recipe_project project.
+ASGI config for sportsnap project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

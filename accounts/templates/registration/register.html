@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - SportSnap{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="glass-card rounded-4 p-4 shadow-lg position-relative overflow-hidden">
+            <div class="position-absolute" style="width: 250px; height: 250px; background: radial-gradient(circle, var(--ss-accent) 0%, transparent 70%); top: -120px; left: -120px; opacity: 0.15; z-index: 0;"></div>
+            
+            <div class="position-relative z-1">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-white mb-1">Create an Account</h2>
+                    <p class="text-light-50">Join SportSnap to start sharing your photos.</p>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label text-white fw-medium mb-2">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text text-light-50 mt-1 small">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    
+                    <div class="d-grid gap-2 mt-4 pt-2">
+                        <button type="submit" class="btn btn-accent rounded-pill py-2 fw-bold shadow">Register</button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-4 pt-3 border-top" style="border-color: var(--ss-glass-border) !important;">
+                    <p class="mb-0 text-light-50">Already have an account? <a href="{% url 'login' %}" class="text-accent text-decoration-none fw-medium">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Photo - SportSnap{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-6">
+        <div class="glass-card rounded-4 p-4 shadow-lg border-danger" style="border-color: rgba(239, 68, 68, 0.5) !important;">
+            <div class="text-center mb-4">
+                <div class="d-inline-block bg-danger bg-opacity-10 rounded-circle p-3 mb-3">
+                    <i class="bi bi-trash3-fill display-4 text-danger"></i>
+                </div>
+                <h2 class="fw-bold text-white mb-2">Delete Photo</h2>
+                <p class="text-light-50">Are you sure you want to completely delete <strong>"{{ photo.title }}"</strong>?</p>
+            </div>
+            
+            <div class="text-center mb-4">
+                <img src="{{ photo.image.url }}" class="img-fluid rounded-3 shadow" style="max-height: 250px; object-fit: cover; border: 1px solid var(--ss-glass-border);" alt="{{ photo.title }}">
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex justify-content-between mt-4 border-top pt-4" style="border-color: var(--ss-glass-border) !important;">
+                    <a href="javascript:history.back()" class="btn btn-outline-light rounded-pill px-4">Cancel</a>
+                    <button type="submit" class="btn btn-danger rounded-pill px-4 shadow">Yes, Delete Photo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

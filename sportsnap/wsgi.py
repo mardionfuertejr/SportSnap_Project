@@ -1,5 +1,5 @@
 """
-WSGI config for recipe_project project.
+WSGI config for sportsnap project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

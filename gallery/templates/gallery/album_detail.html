@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ album.title }} - SportSnap{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent p-0 mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'gallery_home' %}" class="text-accent text-decoration-none"><i class="bi bi-house-door me-1"></i>Albums</a></li>
+            <li class="breadcrumb-item text-light-50 active" aria-current="page">{{ album.title|truncatechars:30 }}</li>
+        </ol>
+    </nav>
+
+    <div class="glass-card rounded-4 overflow-hidden position-relative p-0 mb-5">
+        {% if album.photos.first %}
+        <div class="album-hero p-5" style="background-image: url('{{ album.photos.first.image.url }}'); position: relative;">
+            <div class="hero-overlay" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: linear-gradient(to right, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.6) 100%);"></div>
+        {% else %}
+        <div class="album-hero p-5" style="background: linear-gradient(135deg, var(--ss-secondary), rgba(15, 23, 42, 0.9)); position: relative;">
+        {% endif %}
+            <div class="position-relative z-1 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                <div class="mb-4 mb-md-0 pe-md-4">
+                    <h2 class="display-5 fw-bold text-white mb-2">{{ album.title }}</h2>
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge sport-badge rounded-pill me-3"><i class="bi bi-person-circle me-1"></i>{{ album.owner.username }}</span>
+                        <span class="text-muted small"><i class="bi bi-calendar3 me-1"></i>{{ album.created_at|date:"F d, Y" }}</span>
+                    </div>
+                    <p class="lead text-light-50 mb-0" style="max-width: 800px;">{{ album.description|default:"No description provided for this album." }}</p>
+                </div>
+                
+                {% if user.is_authenticated and user == album.owner or user.is_superuser %}
+                <div class="d-flex flex-column gap-2 flex-shrink-0">
+                    <a href="{% url 'photo_create' %}" class="btn btn-accent rounded-pill px-4 shadow"><i class="bi bi-cloud-upload-fill me-2"></i>Upload Photo</a>
+                    <a href="{% url 'album_edit' album.pk %}" class="btn btn-outline-light rounded-pill px-4"><i class="bi bi-pencil-square me-2"></i>Edit Album</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-white m-0">Album <span class="text-accent">Photos</span></h3>
+        <span class="badge bg-secondary rounded-pill px-3 py-2 fs-6">{{ album.photos.count }} Photos</span>
+    </div>
+
+    {% if album.photos.all %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for photo in album.photos.all %}
+        <div class="col">
+            <div class="card h-100 photo-card glass-card border-0 overflow-hidden">
+                <div class="photo-container position-relative">
+                    <img src="{{ photo.image.url }}" class="card-img-top w-100" alt="{{ photo.title }}" style="object-fit: cover; height: 300px;">
+                    <div class="photo-overlay d-flex flex-column justify-content-end p-3">
+                        <h5 class="text-white fw-bold mb-1">{{ photo.title }}</h5>
+                        <p class="text-light-50 small mb-0"><i class="bi bi-clock-history me-1"></i>{{ photo.uploaded_at|date:"M d, Y" }}</p>
+                    </div>
+                </div>
+                
+                {% if photo.description or user.is_authenticated and user == photo.owner or user.is_superuser %}
+                <div class="card-body py-3">
+                    {% if photo.description %}
+                    <p class="card-text text-light-50 mb-3">{{ photo.description }}</p>
+                    {% endif %}
+                    
+                    {% if user.is_authenticated and user == photo.owner or user.is_superuser %}
+                    <div class="d-flex justify-content-end gap-2 mt-auto">
+                        <a href="{% url 'photo_edit' photo.pk %}" class="btn btn-outline-warning btn-sm rounded-pill px-3" title="Edit"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <a href="{% url 'photo_delete' photo.pk %}" class="btn btn-outline-danger btn-sm rounded-pill px-3" title="Delete"><i class="bi bi-trash3"></i> Delete</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert glass-alert alert-info text-center py-5 rounded-4 mt-4">
+        <i class="bi bi-images display-4 text-accent mb-3 d-block"></i>
+        <h4 class="alert-heading fw-bold">This album is empty</h4>
+        <p class="mb-4 text-light-50">There are no photos in this album yet.</p>
+        {% if user.is_authenticated and user == album.owner or user.is_superuser %}
+        <a href="{% url 'photo_create' %}" class="btn btn-accent rounded-pill px-4 py-2 shadow"><i class="bi bi-cloud-upload-fill me-2"></i>Upload First Photo</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
