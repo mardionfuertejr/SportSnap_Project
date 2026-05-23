@@ -48,9 +48,9 @@ INSTALLED_APPS = [
 ]
 
 CLOUDINARY_STORAGE = {
-    'CLOUDINARY_CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
-    'CLOUDINARY_API_KEY': config('CLOUDINARY_API_KEY', default=''),
-    'CLOUDINARY_API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
 }
 
 STORAGES = {
