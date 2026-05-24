@@ -3,40 +3,52 @@
 {% block title %}Register - SportSnap{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center py-5">
-    <div class="col-md-6 col-lg-5">
-        <div class="glass-card rounded-4 p-4 shadow-lg position-relative overflow-hidden">
+<div class="row justify-content-center py-4">
+    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
+        <div class="glass-card rounded-4 p-4 p-md-5 shadow-lg position-relative overflow-hidden">
             <div class="position-absolute" style="width: 250px; height: 250px; background: radial-gradient(circle, var(--ss-accent) 0%, transparent 70%); top: -120px; left: -120px; opacity: 0.15; z-index: 0;"></div>
-            
-            <div class="position-relative z-1">
+
+            <div class="position-relative" style="z-index: 1;">
                 <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-3" style="width:60px;height:60px;background:rgba(245,158,11,0.12);border-radius:50%;">
+                        <i class="bi bi-person-plus-fill fs-2 text-accent"></i>
+                    </div>
                     <h2 class="fw-bold text-white mb-1">Create an Account</h2>
-                    <p class="text-light-50">Join SportSnap to start sharing your photos.</p>
+                    <p class="text-light-50 mb-0">Join SportSnap to start sharing your photos.</p>
                 </div>
-                
-                <form method="post">
+
+                <form method="post" novalidate>
                     {% csrf_token %}
-                    
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger small py-2 mb-3">
+                        {% for error in form.non_field_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
                     {% for field in form %}
-                        <div class="mb-3">
-                            <label for="{{ field.id_for_label }}" class="form-label text-white fw-medium mb-2">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <div class="form-text text-light-50 mt-1 small">{{ field.help_text }}</div>
-                            {% endif %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label text-white fw-medium mb-1 small">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
                             {% for error in field.errors %}
-                                <div class="invalid-feedback d-block">{{ error }}</div>
+                                <div class="text-danger small mt-1"><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
                             {% endfor %}
-                        </div>
+                        {% endif %}
+                    </div>
                     {% endfor %}
-                    
-                    <div class="d-grid gap-2 mt-4 pt-2">
-                        <button type="submit" class="btn btn-accent rounded-pill py-2 fw-bold shadow">Register</button>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-accent rounded-pill py-2 fw-bold shadow">
+                            <i class="bi bi-person-check-fill me-2"></i>Register
+                        </button>
                     </div>
                 </form>
-                
+
                 <div class="text-center mt-4 pt-3 border-top" style="border-color: var(--ss-glass-border) !important;">
-                    <p class="mb-0 text-light-50">Already have an account? <a href="{% url 'login' %}" class="text-accent text-decoration-none fw-medium">Login here</a></p>
+                    <p class="mb-0 text-light-50 small">Already have an account? <a href="{% url 'login' %}" class="text-accent text-decoration-none fw-medium">Login here</a></p>
                 </div>
             </div>
         </div>
