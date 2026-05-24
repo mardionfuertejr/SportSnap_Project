@@ -1,0 +1,30 @@
+databases:
+  - name: sportsnap_db
+    databaseName: sportsnap
+    user: sportsnap_user
+    plan: free
+
+services:
+  - type: web
+    name: sportsnap-web
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate"
+    startCommand: "gunicorn sportsnap.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sportsnap_db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: WEB_CONCURRENCY
+        value: "4"
+      # You must fill these Cloudinary secrets in the Render dashboard manually
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
