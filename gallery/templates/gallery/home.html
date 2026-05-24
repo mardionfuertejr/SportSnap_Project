@@ -33,7 +33,7 @@
         <h2 class="fw-bold text-white mb-0">{% if query %}Results for "{{ query }}"{% else %}Featured Albums{% endif %}</h2>
         <p class="text-muted small mb-0 mt-1">{% if query %}Showing matching albums{% else %}Browse the latest community uploads{% endif %}</p>
     </div>
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and albums %}
     <a href="{% url 'album_create' %}" class="btn btn-accent rounded-pill px-4 fw-semibold shadow">
         <i class="bi bi-plus-lg me-1"></i>New Album
     </a>

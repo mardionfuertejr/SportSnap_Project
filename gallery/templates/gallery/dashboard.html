@@ -13,9 +13,11 @@
             &nbsp;&bull;&nbsp; {{ page_obj.paginator.count }} album{{ page_obj.paginator.count|pluralize }}
         </p>
     </div>
+    {% if albums %}
     <a href="{% url 'album_create' %}" class="btn btn-accent rounded-pill px-4 fw-semibold shadow">
         <i class="bi bi-plus-lg me-1"></i>Create Album
     </a>
+    {% endif %}
 </div>
 
 {% if albums %}
