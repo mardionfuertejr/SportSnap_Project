@@ -9,9 +9,9 @@
     --ss-accent: #f59e0b;
     --ss-accent-hover: #d97706;
     --ss-text-main: #f1f5f9;
-    --ss-text-muted: #64748b;
+    --ss-text-muted: #94a3b8;
     --ss-glass-bg: rgba(21, 31, 48, 0.75);
-    --ss-glass-border: rgba(255, 255, 255, 0.08);
+    --ss-glass-border: rgba(255, 255, 255, 0.12);
     --ss-radius: 1rem;
 }
 
@@ -226,7 +226,7 @@ body {
 /* ── Utility Classes ──────────────────────────────────────── */
 .text-accent       { color: var(--ss-accent) !important; }
 .bg-accent         { background: var(--ss-accent) !important; }
-.text-light-50     { color: rgba(241,245,249,0.5) !important; }
+.text-light-50     { color: rgba(241,245,249,0.7) !important; }
 
 code {
     background: rgba(245,158,11,0.12);
